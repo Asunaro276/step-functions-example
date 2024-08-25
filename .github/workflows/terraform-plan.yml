@@ -35,8 +35,3 @@ jobs:
         id: plan
         run: terraform plan -no-color
         working-directory: terraform
-
-      - run: >
-          echo ${{ steps.plan.outputs.stdout }}
-          echo ${{ steps.plan.outputs.stderr }}
-          echo ${{ steps.plan.outputs.exitcode }}

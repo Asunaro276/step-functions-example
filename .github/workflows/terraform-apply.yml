@@ -22,6 +22,11 @@ jobs:
           role-session-name: github-actions-session
           aws-region: ap-northeast-1
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Terraform setup
         uses: hashicorp/setup-terraform@v3
 

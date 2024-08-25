@@ -2,18 +2,13 @@ name: 'Terraform Plan'
 on:
   pull_request
 
-env:
-  TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "terraform"
-  CONFIG_DIRECTORY: "./"
-
 jobs:
   terraform:
     name: "Terraform Plan"
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: read
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4

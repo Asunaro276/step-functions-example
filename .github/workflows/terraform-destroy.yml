@@ -1,12 +1,10 @@
-name: 'Terraform Apply'
+name: 'Terraform Destroy'
 on:
-  push:
-    branches:
-      - "main"
+  workflow_dispatch
 
 jobs:
   terraform:
-    name: "Terraform Apply"
+    name: "Terraform Destroy"
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -34,7 +32,7 @@ jobs:
         run: terraform init
         working-directory: terraform
       
-      - name: Terraform apply
+      - name: Terraform destroy
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform destroy -auto-approve
         working-directory: terraform

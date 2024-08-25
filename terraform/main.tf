@@ -18,11 +18,11 @@ data "aws_region" "current_region" {}
 resource "random_string" "random" {
   length  = 8
   special = false
-  upper = false
+  upper   = false
 }
 
 resource "null_resource" "lambda_build" {
-  for_each = toset(local.function_names)
+  for_each   = toset(local.function_names)
   depends_on = [aws_s3_bucket.lambda_assets]
 
   provisioner "local-exec" {
@@ -51,7 +51,7 @@ resource "null_resource" "lambda_build" {
 terraform {
   backend "s3" {
     bucket = "tfstate-nakano"
-    key = "step-functions-example/terraform.tfstate"
+    key    = "step-functions-example/terraform.tfstate"
     region = "ap-northeast-1"
   }
 }

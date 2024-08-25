@@ -22,14 +22,14 @@ resource "aws_s3_bucket_public_access_block" "lambda_assets" {
 }
 
 data "aws_s3_object" "package" {
-  for_each = local.function_package_s3_keys
+  for_each   = local.function_package_s3_keys
   depends_on = [null_resource.lambda_build]
 
   bucket = aws_s3_bucket.lambda_assets.bucket
   key    = each.value
 }
 data "aws_s3_object" "package_hash" {
-  for_each = local.function_package_base64sha256_s3_keys
+  for_each   = local.function_package_base64sha256_s3_keys
   depends_on = [null_resource.lambda_build]
 
   bucket = aws_s3_bucket.lambda_assets.bucket

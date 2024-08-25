@@ -15,11 +15,7 @@ export const handler = async (event) => {
         return {
             statusCode: 200,
             body: JSON.stringify({
-                messages: [
-                    "hello world!!",
-                    "hello lambda!!",
-                    "hello state machine!!"
-                ]
+                message: `You say "${event.body}"`,
             }),
         };
     } catch (err) {

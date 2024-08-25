@@ -1,15 +1,43 @@
 {
   "Comment": "A test state machine",
-  "StartAt": "Lambda Invoke",
+  "StartAt": "First Function",
   "States": {
-    "Lambda Invoke": {
+    "First Function": {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
-          "Payload.$": "$",
-          "FunctionName": "${ProcessingLambda}"
+        "Payload.$": "$",
+        "FunctionName": "${first-function}"
       },
-      "End": true
+      "Next": "Map",
+      "ResultSelector": {
+        "body.$": "States.StringToJson($.Payload.body)"
+      }
+    },
+    "Map": {
+      "Type": "Map",
+      "ItemProcessor": {
+        "ProcessorConfig": {
+          "Mode": "INLINE"
+        },
+        "StartAt": "Second Function",
+        "States": {
+          "Second Function": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+              "Payload.$": "$",
+              "FunctionName": "${second-function}"
+            },
+            "End": true
+          }
+        }
+      },
+      "End": true,
+      "ItemsPath": "$.body.messages",
+      "ItemSelector": {
+        "body.$": "$$.Map.Item.Value"
+      }
     }
   }
 }

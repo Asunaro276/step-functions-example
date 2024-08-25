@@ -25,13 +25,16 @@ jobs:
 
       - name: Terraform init
         run: terraform init
+        working-directory: terraform
       
       - name: Terraform validate
         run: terraform validate
+        working-directory: terraform
 
       - name: Terraform plan
         id: plan
         run: terraform plan -no-color
+        working-directory: terraform
 
       - run: >
           echo ${{ steps.plan.outputs.stdout }}
